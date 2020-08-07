@@ -6,6 +6,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
+import FavoritesScreen from './screens/FavoritesScreen';
+import ReservationsScreen from './screens/ReservationsScreen';
 import MonumentScreen from './screens/MonumentScreen';
 import PlanScreen from './screens/PlanScreen';
 import QuizzScreen from './screens/QuizzScreen';
@@ -24,24 +26,28 @@ import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 
 
-const store = createStore(combineReducers({?????}));
+// const store = createStore(combineReducers({?????}));
 
 
+var BottomNavigator = createBottomTabNavigator ({
+  Maps: MapScreen,
+  Favorites: FavoritesScreen,
+  Reservations: ReservationsScreen
+})
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+var StackNavigator = createStackNavigator ({
+  Home:HomeScreen,
+  BottomNavigator: BottomNavigator
+},{headerMode:"none"})
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default Navigation = createAppContainer(StackNavigator);
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
