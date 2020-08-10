@@ -1,29 +1,32 @@
 import React, { useEffect , useState }from 'react';
 import { Text, View ,StyleSheet} from 'react-native';
-import MapView  from 'react-native-maps';
+import MapView , { Marker } from 'react-native-maps';
 import * as Permissions from "expo-permissions";
 import * as Location from 'expo-location';
 
 
 export default function MapScreen () {
 
-    const [lattitude,setLatitude] = useState(0);
+    const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
 
 
     useEffect(() => {
-        const Ask = async ()=>{
-             let { status } = await Permissions.askAsync(Permissions.Location);
-             console.log(status)
+        const ask = async ()=>{
+             let { status } = await Permissions.askAsync(Permissions.LOCATION);
             if(status === "granted"){
-                return await Location.getCurrentPositionAsync({latitude,longitude});
-        }}
-     
-    }, [])
+             var location = await  Location.getCurrentPositionAsync({})
+             setLatitude(location.coords.latitude)
+             setLongitude(location.coords.longitude)
+            }
+        }
+     ask()
+        }, [])
+        console.log(latitude)
 
     return (
-        <MapView style={styles.Map}>
-            <Text>lalallaa</Text>
+        <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>
+          <Marker coordinate={{latitude:latitude,longitude:longitude,latitudeDelta:latitude,longitudeDelta:longitude}} title="tu es la " description="tu es la"/>
         </MapView>
     )
 }
