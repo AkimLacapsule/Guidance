@@ -14,6 +14,7 @@ export default function MapScreen () {
     useEffect(() => {
         const Ask = async ()=>{
              let { status } = await Permissions.askAsync(Permissions.Location);
+             console.log(status)
             if(status === "granted"){
                 return await Location.getCurrentPositionAsync({latitude,longitude});
         }}
