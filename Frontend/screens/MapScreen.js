@@ -1,12 +1,36 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect , useState }from 'react';
+import { Text, View ,StyleSheet} from 'react-native';
+import MapView  from 'react-native-maps';
+import * as Permissions from "expo-permissions";
+import * as Location from 'expo-location';
 
-function MapScreen () {
+
+export default function MapScreen () {
+
+    const [lattitude,setLatitude] = useState(0);
+    const [longitude,setLongitude] = useState(0);
+
+
+    useEffect(() => {
+        const Ask = async ()=>{
+             let { status } = await Permissions.askAsync(Permissions.Location);
+            if(status === "granted"){
+                return await Location.getCurrentPositionAsync({latitude,longitude});
+        }}
+     
+    }, [])
+
     return (
-        <View style={{backgoundColor:"red"}}>
-            <Text>Mapscreen</Text>
-        </View>
+        <MapView style={styles.Map}>
+            <Text>lalallaa</Text>
+        </MapView>
     )
 }
 
-export default MapScreen
+const styles = StyleSheet.create({
+    Map:{
+        width:"100%",
+        height:"100%"
+    }
+})
+
