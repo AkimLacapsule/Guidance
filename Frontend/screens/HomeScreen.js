@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Image } from 'react-native';
 import {Button, Input} from 'react-native-elements';
-// import {Link, Redirect} from 'react-router-dom';
+
 // import {connect} from 'react-redux';
 
 
 export default function HomeScreen ({navigation}) {
 
-  const [signInEmail, setSignInEmail] = useState('')
-  const [signInPassword, setSignInPassword] = useState('')
+  const [signInusermail, setSignInusermail] = useState('')
+  const [signInuserpwd, setSignInuserpwd] = useState('')
 
   const [userExists, setUserExists] = useState(false)
 
@@ -17,10 +17,10 @@ export default function HomeScreen ({navigation}) {
 
       var handleSubmitSignin = async () => {
      
-        const data = await fetch('/sign-in', {
+        const data = await fetch('http://10.2.3.51:3000/sign-in', {
           method: 'POST',
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`
+          body: `usermailFromFront=${signInusermail}&userpwdFromFront=${signInuserpwd}`
         })
     
         const body = await data.json();
@@ -45,22 +45,33 @@ export default function HomeScreen ({navigation}) {
 
     return (
         <ImageBackground source={require('../assets/background-home.jpg')} style={{flex:1}}>
-        <View style={{flex:1}}>
+        <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+
+          <View style={styles.text}>
+
+          <Image source={require('../assets/logo.png')} style={{width:100, height: 120}}/>
             
 
-            <Text> Guidance</Text>
+            <Text style={{fontSize: 50, color: '#FFFFFF'}}> Guidance</Text>
 
-            <Input onChange={(e) => setSignInEmail(e.target.value)}  placeholder="email" />
+          </View>
 
-            <Input onChange={(e) => setSignInPassword(e.target.value)}  placeholder="password" />
+            <Input onChangeText={(e) => setSignInusermail(e)}  placeholder="usermail" />
+
+            <Input onChangeText={(e) => setSignInuserpwd(e)} placeholder="userpwd" />
             
             {tabErrorsSignin}
 
-            <Button title= "Sign-In" onPress={() => handleSubmitSignin()}  style={{width:80}} type="primary"/>
+            <Button title= "Connexion" onPress={() => {handleSubmitSignin()}} style={{width:120}} type="primary"/>
+            <Button title="Go to map" onPress={() => navigation.navigate("Home")}/>
 
-            <Text> Vous n'êtes pas encore des nôtres ? <Button style={{flex:1}} title="Go to SignUp" onPress={() => navigation.navigate("/SignUpScreen")}/></Text>
-            
-           
+            <View style={{flexDirection : "row", justifyContent: "center", alignItems: "center"}}>
+
+            <Text> Vous n'avez pas de compte ? </Text>
+            <Button type="clear" style={{width: "100%"}} title="Inscription" onPress={() => navigation.navigate("SignUp")}/>
+
+            </View>
+
         </View>
         </ImageBackground>
     )
@@ -73,9 +84,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     text: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        textShadowColor: '#FFFFFF'
+        
 
     }, 
     icon: {
