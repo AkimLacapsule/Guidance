@@ -26,7 +26,7 @@ export default function MapScreen () {
 
     return (
         <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>
-          <Marker coordinate={{latitude:latitude,longitude:longitude,latitudeDelta:latitude,longitudeDelta:longitude}} title="tu es la , hey"   description="tu es la"/>
+          <Marker coordinate={{latitude:latitude,longitude:longitude,latitudeDelta:latitude,longitudeDelta:longitude}} title="tu es la , "   description="tu es la"/>
         </MapView>
     )
 }
