@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, ScrollView, Image } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Text, View, ScrollView, Image, StyleSheet } from 'react-native';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Header } from "react-native-elements";
 
 function BadgesScreen () {
 
@@ -57,7 +58,6 @@ function BadgesScreen () {
 
 
             for (var i=0; i<myBadges.length; i++) {
-                console.log(myBadges[i].src);
                 displayBadges.push(
                 <View style={{width:"33%", display:"flex", alignItems:"center", padding:5}}>
                 <Image source={randomImages[i]} style={{flex:1, resizeMode:"contain", width:100}}/>
@@ -72,6 +72,14 @@ function BadgesScreen () {
     return (
 
         <View style={{backgroundColor:"white", height:"100%"}}>
+
+            <Header backgroundColor={styles.header.color} 
+            leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
+            rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
+            centerComponent={<Image   style={{height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image>
+            }
+            />
+
             <View style={{display:"flex", flexDirection:"row", marginLeft:10, paddingTop:25, alignItems:"center"}}>
                 <Ionicons name="ios-arrow-back" size={24} color="#57508C"/>
                 <Text style={{marginLeft:5}}>Retour</Text>
@@ -88,5 +96,18 @@ function BadgesScreen () {
         </View>        
     )
 }
+
+const styles = StyleSheet.create({
+    Map:{
+        width:"100%",
+        height:"100%"
+    },
+    header:{
+        color:"#4D3D84",
+        flex: 1,
+        alignItems:"center"
+    }
+
+})
 
 export default BadgesScreen
