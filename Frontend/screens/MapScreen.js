@@ -22,7 +22,7 @@ export default function MapScreen () {
         }
      ask()
         }, [])
-        console.log(latitude)
+        // console.log(latitude)
 
     return (
         <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>

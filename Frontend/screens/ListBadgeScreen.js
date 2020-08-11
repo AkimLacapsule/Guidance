@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 function BadgesScreen () {
+
+    const [myBadges, setMyBadges]=useState([]);
+
 
     var badgesList = [
         { points:0 ,src:"../assets/badge-0-miles.jpg"},
@@ -17,25 +20,33 @@ function BadgesScreen () {
         { points:2000 ,src:"../assets/badge-2000-miles.jpg"}
     ];
 
-    var mybadges = []
 
     useEffect(()=>{
         async function calculPoint(){
             var rawResponse = await fetch ("http://10.2.3.92:3000/points-counter");
             var response = await rawResponse.json();
-            for (var i=0; badgesList.length ; i++) {
-                if(response.points>badgesList[i].points){
-                    mybadges.push(badgesList[i].src);
+            for (var i=0; i<badgesList.length ; i++) {
+                if(response.points>=badgesList[i].points){
+                    setMyBadges([...myBadges,badgesList[i]]);
                 }
             }
         }calculPoint()
     },[]);
 
+
+    // console.log('badges', myBadges);
+
+    // var displayBadges = [];
+
+    // for (var i=0; i<mybadges.length; i++) {
+    //     displayBadges.push()
+    // }
     
 
     return (
         <View>
             <Text>Badgesscreen</Text>
+            {/* {displayBadges} */}
         </View>
     )
 }
