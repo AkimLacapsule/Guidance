@@ -36,9 +36,15 @@ export default function SignUpScreen ({navigation}) {
           setErrorsSignup(body.error)
         }
       }
+      
+      //   if(userExists == true){
+      //   return (<Text> Utilisateur déjà existant </Text>)
+       
+      // }
+     
     
       var tabErrorsSignup = listErrorsSignup.map((error,i) => {
-        return(<p>{error}</p>)
+        return(<Text>{error}</Text>)
       })
 
     return (

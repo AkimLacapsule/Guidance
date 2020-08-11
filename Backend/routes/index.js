@@ -31,23 +31,23 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/sign-up', async function(req,res,next){
-
+console.log(req.body, "Blaboui")
   var error = []
   var result = false
   var saveUser = null
   var token = null
 
   const data = await userModel.findOne({
-    email: req.body.emailFromFront
+    mail: req.body.usermailFromFront
   })
 
   if(data != null){
     error.push('utilisateur déjà  présent')
   }
 
-  if(req.body.usernameFromFront == ''
-  || req.body.emailFromFront == ''
-  || req.body.passwordFromFront == ''
+  if(req.body.userpseudoFromFront == ''
+  || req.body.usermailFromFront == ''
+  || req.body.userpwdFromFront == ''
   ){
     error.push('Champs vides')
   }
@@ -57,14 +57,16 @@ router.post('/sign-up', async function(req,res,next){
 
     var salt = uid2(32)
     var newUser = new userModel({
-      username: req.body.usernameFromFront,
-      email: req.body.emailFromFront,
-      password: SHA256(req.body.passwordFromFront+salt).toString(encBase64),
+      userpseudo: req.body.userpseudoFromFront,
+      usermail: req.body.usermailFromFront,
+      userpwd: SHA256(req.body.userpwdFromFront+salt).toString(encBase64),
       token: uid2(32),
       salt: salt,
+      points: 0
     })
   
     saveUser = await newUser.save()
+    console.log(saveUser, "Blabla")
   
     
     if(saveUser){
@@ -78,34 +80,41 @@ router.post('/sign-up', async function(req,res,next){
 })
 
 router.post('/sign-in', async function(req,res,next){
+ 
 
   var result = false
   var user = null
   var error = []
   var token = null
   
-  if(req.body.emailFromFront == ''
-  || req.body.passwordFromFront == ''
+  if(req.body.usermailFromFront == ''
+  || req.body.userpwdFromFront == ''
   ){
     error.push('champs vides')
   }
 
   if(error.length == 0){
     const user = await userModel.findOne({
-      email: req.body.emailFromFront,
+      usermail: req.body.usermailFromFront,
+      
     })
-  
+    console.log(user, 'PAPPAAPA')
+    console.log(req.body.usermailFromFront, "Bouyaka")
+    console.log(req.body.userpwdFromFront, 'Boubou')
     
     if(user){
-      const passwordEncrypt = SHA256(req.body.passwordFromFront + user.salt).toString(encBase64)
-
-      if(passwordEncrypt == user.password){
+      const passwordEncrypt = SHA256(req.body.userpwdFromFront + user.salt).toString(encBase64)
+      console.log(passwordEncrypt,"Bouboubaba")
+      console.log(user.userpwd, 'Biact')
+      console.log(req.body.userpwdFromFront, "FrontBitch")
+      if(passwordEncrypt == user.userpwd){
         result = true
         token = user.token
       } else {
         result = false
         error.push('mot de passe incorrect')
       }
+      
       
     } else {
       error.push('email incorrect')

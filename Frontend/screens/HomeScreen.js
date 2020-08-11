@@ -28,18 +28,17 @@ export default function HomeScreen ({navigation}) {
         if(body.result == true){
         //   props.addToken(body.token)
           setUserExists(true)
+          navigation.navigate("BottomNavigator")
           
         }  else {
           setErrorsSignin(body.error)
         }
       }
     
-    //   if(userExists){
-    //     return <Redirect to='/MapScreen' />
-    //   }
+    
     
       var tabErrorsSignin = listErrorsSignin.map((error,i) => {
-        return(<p>{error}</p>)
+        return(<Text>{error}</Text>)
       })
     
 
@@ -62,7 +61,7 @@ export default function HomeScreen ({navigation}) {
             
             {tabErrorsSignin}
 
-            <Button title= "Connexion" onPress={() => {handleSubmitSignin()}} style={{width:120}} type="primary"/>
+            <Button title= "Connexion" onPress={() => handleSubmitSignin()} style={{width:120}} type="primary"/>
             <Button title="Go to map" onPress={() => navigation.navigate("Home")}/>
 
             <View style={{flexDirection : "row", justifyContent: "center", alignItems: "center"}}>
