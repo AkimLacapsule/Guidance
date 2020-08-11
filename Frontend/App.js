@@ -61,6 +61,7 @@ tabBarOptions: {
 
 var StackNavigator = createStackNavigator ({
   Home:HomeScreen,
+  MyBadges:ListBadgeScreen,
   SignUp: SignUpScreen,
   BottomNavigator: BottomNavigator
 },{headerMode:"none"})
