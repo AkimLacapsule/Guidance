@@ -1,14 +1,17 @@
 import React, { useEffect , useState }from 'react';
-import { Text, View ,StyleSheet} from 'react-native';
+import { Text, View ,StyleSheet ,Image} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
 import * as Permissions from "expo-permissions";
 import * as Location from 'expo-location';
-
+import { Header ,SearchBar,ButtonGroup} from "react-native-elements";
+import  { Ionicons } from "react-native-vector-icons";
+import { FontAwesome } from '@expo/vector-icons'; 
 
 export default function MapScreen () {
 
     const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
+    console.log(latitude,longitude)
 
 
     useEffect(() => {
@@ -22,12 +25,42 @@ export default function MapScreen () {
         }
      ask()
         }, [])
-        // console.log(latitude)
 
     return (
+
+       <View>
+            <Header backgroundColor={styles.header.color} 
+            leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
+            rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
+            centerComponent={<Image   style={{height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image>
+            }
+            />
+           
+           <View style={{backgroundColor:"grey", height:60, dispay:"flex", justifyContent:"space-between", alignItems:"center", flexDirection:"row"}}>
+            <View style={{display:"flex", flexDirection:"row"}}><Ionicons name="ios-options" size={24} color="black"  /><Text>Filter</Text></View>
+            <View style={{width:200, height:50,borderRadius:50,backgroundColor:"grey"}}><SearchBar  containerStyle= {{borderRadius:50,height:38,backgroundColor:"grey"}}  inputContainerStyle= {{borderRadius:50, height:"100%"}} inputStyle={{height:100}} placeholder="Ville,monument.."></SearchBar></View>
+           </View>
+
+          { /*  <Header 
+             containerStyle={{height:"7%"}}
+             leftContainerStyle={{alignItems:"center",height:"150%",marginLeft:-20}}
+             rightContainerStyle={{alignItems:"center",marginRight:60, width: "50%"}}
+             leftComponent={<Ionicons name="ios-options" size={24} color="white"  />}
+             rightComponent={ <SearchBar   placeholder="mysearch" />}
+             />
+          */}
+
         <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>
-          <Marker coordinate={{latitude:latitude,longitude:longitude,latitudeDelta:latitude,longitudeDelta:longitude}} title="tu es la    , "   description="tu es la"/>
+        
+          <Marker coordinate={{
+            latitude:latitude,
+            longitude:longitude,
+            latitudeDelta:latitude,
+            longitudeDelta:longitude
+            }}
+             title="tu es la "   description="tu es la"/>
         </MapView>
+        </View>
     )
 }
 
@@ -35,6 +68,12 @@ const styles = StyleSheet.create({
     Map:{
         width:"100%",
         height:"100%"
+    },
+    header:{
+        color:"#4D3D84",
+        flex: 1,
+        alignItems:"center"
     }
+
 })
 
