@@ -6,11 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 export default function Filter(props) {
 
   // MODAL VISIBLE
-  const [isVisibleFilterModal, setIsVisibleFilterModal] = useState(props.visible)
+  // const [isVisibleFilterModal, setIsVisibleFilterModal] = useState(props.visible)
   const [isVisibleCategeryModal, setIsVisibleCategeryModal] = useState(false)
   // const [isVisibleNotesModal, setIsVisibleNotesModal] = useState(false)
   const [isVisiblePriceModal, setIsVisiblePriceModal] = useState(false)
-
+// console.log(isVisibleFilterModal)
   // CATEGORIES CHECKBOXES
   const [isMonumentChecked, setIsMonumentChecked] = useState(true)
   const [isMuseumChecked, setIsMuseumChecked] = useState(true)
@@ -44,9 +44,23 @@ export default function Filter(props) {
   // Reverse Data Flow
   var sendToMap = () => {
     props.userFilterParent({
-      categories : categorySubtitle,
+      categories : tabCheckboxes,
       price: priceMax,
       showClosed: isSwitched
+    }, false)
+  }
+
+  var closeModal = () => {
+    props.userFilterParent({
+      categories : [{state: true,
+          signification: "Monuments"},
+         {state: true,
+          signification: "Musées"},
+        {state: true,
+          signification: "Parcs & Jardins"}
+        ],
+      price: 50,
+      showClosed: false
     }, false)
   }
 
@@ -78,7 +92,7 @@ export default function Filter(props) {
                               name="ios-close" 
                               size={24} 
                               color="#fff" 
-                              onPress={() => setIsVisibleFilterModal(false)}
+                              onPress={() => closeModal()}
                             />}
           />
 
