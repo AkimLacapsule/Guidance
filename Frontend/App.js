@@ -61,13 +61,9 @@ tabBarOptions: {
 
 var StackNavigator = createStackNavigator ({
   Home:HomeScreen,
-<<<<<<< HEAD
-  BottomNavigator: BottomNavigator,
-  MyBadges:ListBadgeScreen
-=======
+  MyBadges:ListBadgeScreen,
   SignUp: SignUpScreen,
   BottomNavigator: BottomNavigator
->>>>>>> 8bd5f3504915dc337fb7115369d75bc23d186802
 },{headerMode:"none"})
 
 export default Navigation = createAppContainer(StackNavigator);
