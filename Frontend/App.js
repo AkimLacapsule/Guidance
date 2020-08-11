@@ -17,6 +17,7 @@ import ListBadgeScreen from './screens/ListBadgeScreen';
 import ClassementScreen from './screens/ClassementScreen';
 import AccountScreen from './screens/AccountScreen';
 import AvatarScreen from './screens/AvatarScreen';
+import SignUpScreen from './screens/SignUpScreen'; 
 
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -60,17 +61,9 @@ tabBarOptions: {
 
 var StackNavigator = createStackNavigator ({
   Home:HomeScreen,
+  SignUp: SignUpScreen,
   BottomNavigator: BottomNavigator
 },{headerMode:"none"})
 
 export default Navigation = createAppContainer(StackNavigator);
 
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });

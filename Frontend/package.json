@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
+<<<<<<< HEAD
     "expo": "^38.0.0",
+=======
+    "expo": "^38.0.9",
+>>>>>>> 0fcebdb42dfb05e3ca1445218b4b91a005873a1a
     "expo-location": "~8.2.1",
     "expo-permissions": "~9.0.1",
     "expo-status-bar": "^1.0.0",
@@ -18,7 +22,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-elements": "^2.2.0",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-hide-show-password-input": "^1.1.0",
     "react-native-maps": "0.27.1",
+    "react-native-popup-dialog": "^0.18.3",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
