@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var uid2 = require('uid2');
 
 var userModel = require("../models/users"); 
+var tourModel = require("../models/tour"); 
 
 var cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -115,7 +116,49 @@ router.post('/sign-in', async function(req,res,next){
 
   res.json({result, user, error, token})
 
-
 })
+
+  router.post('/display-filtered-tours', async function(req, res, next) {
+
+
+let categories = JSON.parse(req.body.categories)
+
+    let checkedCat = []
+    categories.forEach(obj=>{
+      if (obj.state== true) {
+        checkedCat.push(obj.signification);
+      }
+    })
+
+    var d = new Date();
+    var today = d.getDay();
+    let tours
+
+    console.log("what i get from front", req.body);
+    console.log("les categories selectionnées sont", checkedCat)
+    console.log("aujourd'hui on est le", today)
+
+    if(req.body.showClosed) {
+      tours = await tourModel.find(
+      { category: { $in: checkedCat },
+        simpleprice : {"$lt" : req.body.price},
+        calendar : {day: today, 
+                    open: true}
+      })
+    } else {
+      tours = await tourModel.find(
+        { category: { $in: checkedCat },
+          simpleprice : {"$lt" : req.body.price},
+        })
+    }
+
+    console.log("retour de la BDD", tours)
+
+    res.json({result: tours})
+   
+   
+})
+
+
 
 module.exports = router;
