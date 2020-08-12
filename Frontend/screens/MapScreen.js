@@ -1,3 +1,4 @@
+console.disableYellowBox = true;
 import React, { useEffect , useState }from 'react';
 import { Text, View ,StyleSheet ,Image} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
@@ -6,9 +7,10 @@ import * as Location from 'expo-location';
 import { Header ,SearchBar,ButtonGroup} from "react-native-elements";
 import  { Ionicons } from "react-native-vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
-import Filter from "../screens/FilterScreen"
+import Filter from "../screens/FilterScreen";
+import FooterApp from '../screens/footer';
 
-export default function MapScreen () {
+export default function MapScreen ({navigation}) {
 
     const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
@@ -63,7 +65,7 @@ console.log(filters)
      
     return (
 
-       <View>
+       <View style={{flex:1}}>
             <Header backgroundColor={styles.header.color} 
             leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
             rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
@@ -106,7 +108,13 @@ console.log(filters)
             }}
              title="tu es la "   description="tu es la"/>
         </MapView>
+
+        <FooterApp navigation={navigation}/>
+
+        
+
         <Filter visible={visibleModal} userFilterParent={userFilter}/>
+        
         </View>
     )
 }
