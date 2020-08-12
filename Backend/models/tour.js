@@ -2,10 +2,7 @@ var mongoose = require('mongoose');
 
 var quizzSchema = mongoose.Schema({
     question: String,
-    repA: String,
-    repB: String,
-    repC: String,
-    repD: String,
+    reponses: [String],
     win: String
 })
 

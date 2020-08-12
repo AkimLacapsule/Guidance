@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 4800,
+  "expoServerNgrokUrl": "https://tg-cds.marinefo.frontend.exp.direct",
+  "packagerNgrokUrl": "https://packager.tg-cds.marinefo.frontend.exp.direct",
+  "ngrokPid": 104,
   "webpackServerPort": null
 }
