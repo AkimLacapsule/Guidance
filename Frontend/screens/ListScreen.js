@@ -21,11 +21,13 @@ export default function List ({navigation}){
         const info = async ()=>{
             await fetch("http://10.2.3.25:3000/info-tour",{method:"POST"})
             .then((res)=>res.json())
-            .then((yes)=>console.log(yes))
+            .then((yes)=>setInfo(yes))
+            
         }
         info()
     },[])
  
+    console.log(info)
 
 
     return(

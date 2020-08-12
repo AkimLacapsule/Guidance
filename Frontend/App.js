@@ -47,7 +47,8 @@ var StackNavigator = createStackNavigator ({
   Visit: MonumentScreen,
   Reserve: ReservationsScreen,
   List:List,
-  Account: AccountScreen
+  Account: AccountScreen,
+  Quiz: QuizzScreen
   
 },{headerMode:"none"})
 
