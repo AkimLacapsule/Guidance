@@ -1,15 +1,17 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
+import FooterApp from '../screens/footer';
+import HeaderApp from '../screens/Header';
 
-function QuizzScreen ({navigation}) {
+function QuizScreen ({navigation}) {
     return (
-        <View style={{backgoundColor:"yellow"}}>
-            <Text style={{marginLeft:100, marginTop:"40%", marginBottom:"2%", fontSize:"30%"}}>Quizz Screen</Text>
-            <Button title="Go to badges" onPress={() => navigation.navigate("MyBadges")}/>
-            <Button title="Go to Classement" onPress={() => navigation.navigate("Classement")}/>
-
+        <View style={{flex:1, display:"flex", alignItems:"center"}}>
+            <HeaderApp navigation={navigation}/>
+            <Text>Quiz</Text>
+            <Button color="#57508C" style={{borderRadius:"50%"}} title="Suivant" onPress={() => navigation.navigate("Quiz")}></Button>
+            <FooterApp navigation={navigation}/>
         </View>
     )
 }
 
-export default QuizzScreen;
+export default QuizScreen

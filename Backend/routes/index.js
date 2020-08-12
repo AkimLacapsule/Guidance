@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var uid2 = require('uid2');
 
 var userModel = require("../models/users"); 
+var tourModel = require("../models/tour"); 
 
 var cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -115,7 +116,64 @@ router.post('/sign-in', async function(req,res,next){
 
   res.json({result, user, error, token})
 
-
 })
+
+  router.post('/display-filtered-tours', async function(req, res, next) {
+
+    let categoriesfromFront = JSON.parse(req.body.categories);
+    let pricefromFront = JSON.parse(req.body.price);
+    let showClosedfromFront = JSON.parse(req.body.showClosed);
+  
+    let checkedCat = []
+    categoriesfromFront.forEach(obj=>{
+      if (obj.state) {
+        checkedCat.push(obj.signification);
+      }
+    })
+
+    var d = new Date();
+    var today = d.getDay();
+    let tours
+
+    // console.log("what i get from front", req.body);
+    // console.log("les categories selectionnées sont", checkedCat)
+    // console.log("aujourd'hui on est le", today)
+
+
+    if(showClosedfromFront) {
+      tours = await tourModel.find(
+      { category: { $in: checkedCat },
+        simpleprice: {"$lt" : pricefromFront},
+        calendar: {day: today, 
+                  open: true}
+      })
+    } else {
+      tours = await tourModel.find(
+        { category: { $in: checkedCat },
+          simpleprice: {"$lt" : pricefromFront}
+        })
+    }
+
+    res.json({result: tours}) 
+  })
+
+  router.post('/display-input-tours', async function(req, res, next) {
+
+      let lieu = req.body.title.toLowerCase()
+
+      tours = await tourModel.find({ 
+        title: lieu
+        })
+
+    res.json({result: tours}) 
+    
+})
+
+router.post('/info-tour',async(req,res,next)=>{
+    var tour =  await tourModel.find();
+    res.json(tour)
+})
+
+
 
 module.exports = router;

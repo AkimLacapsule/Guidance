@@ -20,7 +20,7 @@ export default function Filter(props) {
                          {state: isMuseumChecked,
                           signification: "Musées"},
                         {state: isParkChecked,
-                          signification: "Parcs & Jardins"}
+                          signification: "Parcs et Jardins"}
                         ]
   let categorySubtitle = ''                     
   if (isMonumentChecked || isMuseumChecked || isParkChecked){
@@ -34,7 +34,7 @@ export default function Filter(props) {
   }
 
   //PRICE
-  const [priceMax, setPriceMax] = useState(49);
+  const [priceMax, setPriceMax] = useState(50);
   
 
   // SWITCH
@@ -57,7 +57,7 @@ export default function Filter(props) {
          {state: true,
           signification: "Musées"},
         {state: true,
-          signification: "Parcs & Jardins"}
+          signification: "Parcs et Jardins"}
         ],
       price: 50,
       showClosed: false
@@ -149,7 +149,6 @@ export default function Filter(props) {
   {/* CATEGEORIE MODAL */}
   <Modal 
     animationType="slide"
-    
     visible={isVisibleCategeryModal}>
           <View style={styles.ViewInModal}>
 
@@ -182,7 +181,7 @@ export default function Filter(props) {
             />
             <CheckBox
               checkedColor='#4D3D84'
-              title='Parcs & Jardins'
+              title='Parcs et Jardins'
               checked={isParkChecked}
               onPress={() => setIsParkChecked(!isParkChecked)}
             />

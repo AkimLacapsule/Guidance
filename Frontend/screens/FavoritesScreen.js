@@ -3,13 +3,16 @@ import { Text, View, ScrollView } from 'react-native';
 import { Card, TouchableOpacity, Icon } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import FooterApp from '../screens/footer';
+import HeaderApp from '../screens/Header';
 
 function FavoritesScreen ({navigation}) {
     return (
 
         <View style={{paddingTop: 10, paddingBottom:50, flex:1}}>
 
-            <View style={{display:"flex", flexDirection:"row", marginLeft:10, paddingTop:25 }}>
+            <HeaderApp navigation={navigation}/>
+
+            <View style={{display:"flex", flexDirection:"row", marginLeft:10, paddingTop:10 }}>
                 <Ionicons name="ios-arrow-back" size={24} color="#57508C"/>
                 <Text style={{marginLeft:5}}>Accueil</Text>
             </View>
