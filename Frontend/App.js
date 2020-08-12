@@ -34,34 +34,7 @@ import token from './reducers/token';
 const store = createStore(combineReducers({token}));
 console.log(store.getState(), 'STORE INSIDE')
 
-// var BottomNavigator = createBottomTabNavigator ({
-//   Explorer: MapScreen,
-//   Favoris: FavoritesScreen,
-//   Visites: ReservationsScreen
-// },
-//   {
-//     defaultNavigationOptions:({navigation}) => ({
-//     tabBarIcon: ({tintColor}) => {
-//       var iconName;
-//       if(navigation.state.routeName == "Explorer"){
-//         iconName = "md-compass";
-//       }else if(navigation.state.routeName == "Favoris"){
-//         iconName = "md-heart-empty";
-//       }else if(navigation.state.routeName == "Visites"){
-//         iconName = "md-calendar";
-//       }
-//       return <Ionicons name={iconName} size={25} color={tintColor}/>
-//     }
-// }),
-// tabBarOptions: {
-//   activeTintColor: '#20D3D3',
-//   inactiveTintColor: '#FFFFFF',
-//   style: {
-//     backgroundColor: '#4D3D84',
-//   }
-// }  
 
-// });
 
 var StackNavigator = createStackNavigator ({
   Home:HomeScreen,
@@ -69,7 +42,9 @@ var StackNavigator = createStackNavigator ({
   MyBadges:ListBadgeScreen,
   SignUp: SignUpScreen,
   Favorites: FavoritesScreen,
+  Visit: MonumentScreen,
   Reserve: ReservationsScreen,
+  
 },{headerMode:"none"})
 
 const Navigation = createAppContainer(StackNavigator);
