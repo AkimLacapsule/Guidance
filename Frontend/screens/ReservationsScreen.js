@@ -6,6 +6,8 @@ function ReservationsScreen ({navigation}) {
         <View style={{backgoundColor:"yellow"}}>
             <Text>Reservationsscreen</Text>
             <Button title="Go to badges" onPress={() => navigation.navigate("MyBadges")}/>
+            <Button title="Go to PlanScreen" onPress={() => navigation.navigate("Plan")}/>
+
         </View>
     )
 }

@@ -21,6 +21,8 @@ function HomeScreen(props, token) {
     
     if (value) {      
       setTokenList(value);  
+      props.addToken(value);
+      props.navigation.navigate("Map")
      }
       console.log(tokenList, "TokenLife")
      

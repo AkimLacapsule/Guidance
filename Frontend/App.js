@@ -70,6 +70,8 @@ var StackNavigator = createStackNavigator ({
   SignUp: SignUpScreen,
   Favorites: FavoritesScreen,
   Reserve: ReservationsScreen,
+  Plan: PlanScreen,
+  Quizz: QuizzScreen,
 },{headerMode:"none"})
 
 const Navigation = createAppContainer(StackNavigator);
