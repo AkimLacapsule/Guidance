@@ -31,6 +31,7 @@ export default function MapScreen ({navigation}) {
       });
     const [visibleModal, setVisibleModal]= useState(false);
     const [tourList, setTourList] = useState([]);
+    const buttons = ["Carte", "Liste"]
 
 // Fonction reverseDataFlow
     var userFilter = (obj, hideModal) => {

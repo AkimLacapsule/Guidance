@@ -17,14 +17,14 @@ function MonumentScreen ({navigation}) {
             </View>
 
             <TouchableOpacity onPress={() => navigation.navigate("Map")}>
-            <Card image={require('../assets/background-home.jpg')}>       
-                <Text style={{fontWeight:"bold", fontSize:18, textTransform:"uppercase", textAlign:"center"}}>Intérieur</Text>   
+            <Card image={{uri:'https://res.cloudinary.com/dvx36h3ub/image/upload/v1597066939/eglise-saint-eustache_gqcint.jpg'}}>       
+                <Text style={{fontWeight:"bold", fontSize:18, textTransform:"uppercase", textAlign:"center"}}>Extérieur</Text>   
             </Card>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => navigation.navigate("Map")}>
-            <Card image={require('../assets/background-home.jpg')}>     
-                <Text style={{fontWeight:"bold", fontSize:18, textTransform:"uppercase", textAlign:"center"}}>Extérieur</Text>   
+            <Card image={{uri:'https://res.cloudinary.com/dvx36h3ub/image/upload/v1597066939/eglise-saint-eustache-interieur_cludef.jpg'}}>     
+                <Text style={{fontWeight:"bold", fontSize:18, textTransform:"uppercase", textAlign:"center"}}>Intérieur</Text>   
             </Card>
             </TouchableOpacity>
 
