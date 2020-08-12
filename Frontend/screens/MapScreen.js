@@ -1,6 +1,6 @@
 console.disableYellowBox = true;
 import React, { useEffect , useState }from 'react';
-import { Text, View ,StyleSheet ,Image} from 'react-native';
+import { Text, View ,StyleSheet ,Image,Modal} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
 import * as Permissions from "expo-permissions";
 import * as Location from 'expo-location';
@@ -9,6 +9,7 @@ import  { Ionicons } from "react-native-vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
 import Filter from "../screens/FilterScreen";
 import FooterApp from '../screens/footer';
+import HeaderApp from '../screens/Header';
 
 export default function MapScreen ({navigation}) {
 
@@ -30,6 +31,7 @@ export default function MapScreen ({navigation}) {
       });
     const [visibleModal, setVisibleModal]= useState(false);
     const [tourList, setTourList] = useState([]);
+    const buttons = ["Carte","Liste"]
 
 // Fonction reverseDataFlow
     var userFilter = (obj, hideModal) => {
@@ -109,13 +111,9 @@ export default function MapScreen ({navigation}) {
     return (
 
        <View style={{flex:1}}>
-            <Header backgroundColor={styles.header.color} 
-            leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
-            rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
-            centerComponent={<Image   style={{ height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image> 
-            }
-            />
-           
+
+        <HeaderApp navigation={navigation}/>
+                       
         <View style={{margin:0,backgroundColor:"#636363",
             height:60, dispay:"flex", 
             justifyContent:"space-between", 
@@ -135,7 +133,7 @@ export default function MapScreen ({navigation}) {
                                     placeholder="Ville,monument ..." 
                                     onChangeText={(value)=>setInputValue(value)} value={inputValue}>
                                </SearchBar>  
-                            <Button title="list"></Button>
+                            <Button title="list" onPress={()=>{navigation.navigate("List")}}></Button>
            </View>
 
           { /*  <Header 
@@ -172,8 +170,6 @@ export default function MapScreen ({navigation}) {
         </MapView>
 
         <FooterApp navigation={navigation}/>
-
-        
 
         <Filter visible={visibleModal} userFilterParent={userFilter}/>
         

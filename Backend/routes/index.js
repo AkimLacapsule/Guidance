@@ -169,6 +169,11 @@ router.post('/sign-in', async function(req,res,next){
     
 })
 
+router.post('/info-tour',async(req,res,next)=>{
+    var tour =  await tourModel.find();
+    res.json(tour)
+})
+
 
 
 module.exports = router;

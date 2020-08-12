@@ -3,6 +3,7 @@ import { Text, View, ScrollView, Image, StyleSheet } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Header } from "react-native-elements";
 import FooterApp from '../screens/footer';
+import HeaderApp from '../screens/Header';
 
 function BadgesScreen ({navigation}) {
 
@@ -74,14 +75,9 @@ function BadgesScreen ({navigation}) {
 
         <View style={{backgroundColor:"white", height:"100%", flex:1}}>
 
-            <Header backgroundColor={styles.header.color} 
-            leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
-            rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
-            centerComponent={<Image   style={{height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image>
-            }
-            />
+            <HeaderApp navigation={navigation}/>
 
-            <View style={{display:"flex", flexDirection:"row", marginLeft:10, paddingTop:25, alignItems:"center"}}>
+            <View style={{display:"flex", flexDirection:"row", marginLeft:10, paddingTop:10, alignItems:"center"}}>
                 <Ionicons name="ios-arrow-back" size={24} color="#57508C"/>
                 <Text style={{marginLeft:5}}>Retour</Text>
             </View>
