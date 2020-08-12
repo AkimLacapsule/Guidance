@@ -1,6 +1,6 @@
 console.disableYellowBox = true;
 import React, { useEffect , useState }from 'react';
-import { Text, View ,StyleSheet ,Image} from 'react-native';
+import { Text, View ,StyleSheet ,Image,Modal} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
 import * as Permissions from "expo-permissions";
 import * as Location from 'expo-location';
@@ -94,7 +94,7 @@ console.log(filters)
                                     placeholder="Ville,monument ..." 
                                     onChangeText={(value)=>setInputValue(value)} value={inputValue}>
                                </SearchBar>  
-                            <Button title="list"></Button>
+                            <Button title="list" onPress={()=>{navigation.navigate("List")}}></Button>
            </View>
 
           { /*  <Header 

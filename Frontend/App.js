@@ -19,6 +19,7 @@ import AccountScreen from './screens/AccountScreen';
 import AvatarScreen from './screens/AvatarScreen';
 import SignUpScreen from './screens/SignUpScreen'; 
 import FooterApp from './screens/footer';
+import List from "../Frontend/screens/ListScreen";
 
 
 import {createAppContainer } from 'react-navigation';
@@ -70,6 +71,7 @@ var StackNavigator = createStackNavigator ({
   SignUp: SignUpScreen,
   Favorites: FavoritesScreen,
   Reserve: ReservationsScreen,
+  List:List
 },{headerMode:"none"})
 
 const Navigation = createAppContainer(StackNavigator);
