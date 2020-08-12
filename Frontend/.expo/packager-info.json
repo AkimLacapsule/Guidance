@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 23088,
-  "expoServerNgrokUrl": "https://em-yq4.marinefo.frontend.exp.direct",
-  "packagerNgrokUrl": "https://packager.em-yq4.marinefo.frontend.exp.direct",
-  "ngrokPid": 14676,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

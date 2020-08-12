@@ -12,6 +12,7 @@ import FooterApp from '../screens/footer';
 
 export default function MapScreen ({navigation}) {
 
+  // ETATS
     const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
     const [inputValue,setInputValue] = useState("")
@@ -26,14 +27,16 @@ export default function MapScreen ({navigation}) {
         price: 50,
         showClosed: false
       });
-      const [visibleModal, setVisibleModal]= useState(false);
+    const [visibleModal, setVisibleModal]= useState(false);
+    const [tourList, setTourList] = useState([]);
 
-      var userFilter = (obj, hideModal) => {
+// Fonction reverseDataFlow
+    var userFilter = (obj, hideModal) => {
         setVisibleModal(hideModal);
         setFilters(obj)
     }
 
-
+// USEEFFECT PERMISSION LOCALISATION
     useEffect(() => {
         const ask = async ()=>{
              let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -45,24 +48,63 @@ export default function MapScreen ({navigation}) {
         }
      ask()
         }, [])
-console.log(filters)
 
+// USEEFFECT DES FILTRES
     useEffect( () => {
-        console.log("je passe dans le useEffect")
-        let gettours = async () => {
+        console.log("je passe dans le useEffect des filtres")
+        let getToursWithFilters = async () => {
+
         const response = await fetch('http://10.2.3.47:3000/display-filtered-tours', {
           method: 'POST',
           headers: {'Content-Type':'application/x-www-form-urlencoded'},
           body: `categories=${JSON.stringify(filters.categories)}&price=${filters.price}&showClosed=${filters.showClosed}`
         })
-      
-        const jsonResponse = await response.json()
-      }
         
-        gettours();
+        const jsonResponseFilter = await response.json()
+        console.log("reponse du back in front", jsonResponseFilter);
+        setTourList(jsonResponseFilter.result) 
+      }
+      getToursWithFilters();
       }, [filters])
 
-     
+      useEffect( () => {
+        console.log("je passe dans le useEffect de l'input")
+        let getToursWithInput = async () => {
+        const response = await fetch('http://10.2.3.47:3000/display-input-tours', {
+          method: 'POST',
+          headers: {'Content-Type':'application/x-www-form-urlencoded'},
+          body: `title=${inputValue}`
+        })
+        const jsonResponseInput = await response.json()
+        setTourList(jsonResponseInput.result) 
+      }
+        getToursWithInput();
+      }, [inputValue])
+
+  // Boucle marker
+  let markerList = tourList.map((tour, i) => {
+    let color
+    switch (tour.category) {
+      case "Monuments" : color="orange"; break;
+      case "Musées" : color="blue"; break;
+      case "Parcs et Jardins" : color="green"; break;     
+      default : color="red"
+    }
+      return <Marker 
+        key={i}
+        pinColor={color}
+        coordinate={{
+        latitude:tour.location.latitude,
+        longitude:tour.location.longitude,
+        latitudeDelta:latitude,
+        longitudeDelta:longitude
+                    }}
+        title={tour.title}
+        />
+      })
+
+     console.log("voici les tours selectionnés", tourList);
+
     return (
 
        <View style={{flex:1}}>
@@ -99,7 +141,7 @@ console.log(filters)
           */}
 
         <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>
-        
+          {markerList}
           <Marker coordinate={{
             latitude:latitude,
             longitude:longitude,
