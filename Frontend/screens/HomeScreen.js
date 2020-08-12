@@ -44,7 +44,7 @@ console.log(tokenList, "Test Hans")
           AsyncStorage.setItem("saveToken", body.token); 
           setTokenList(body.token),
           setUserExists(true)
-          props.navigation.navigate("BottomNavigator")
+          props.navigation.navigate("Map")
           
         }  else {
           setErrorsSignin(body.error)
@@ -56,7 +56,7 @@ console.log(tokenList, "Test Hans")
       })
     
       // var Labas = function(props){
-      //   props.navigation.navigate("BottomNavigator")
+      //   props.navigation.navigate("Map")
       // }; 
       // var signIn; 
       // if(!tokenList){
@@ -93,7 +93,7 @@ console.log(tokenList, "Test Hans")
             {tabErrorsSignin}
 
             <Button type="solid" title= "Connexion" onPress={() => handleSubmitSignin(token)} style={{width:120, marginLeft:"35%", color: "#FFFFFF"}}/>
-            <Button title="Go to map" onPress={() => props.navigation.navigate("BottomNavigator")}/>
+            <Button title="Go to map" onPress={() => props.navigation.navigate("Map")}/>
 
             </KeyboardAvoidingView>
           

@@ -15,26 +15,9 @@ cloudinary.config({
 });
 
 
-/* GET home page. */
 router.get('/points-counter', async function(req, res, next) {
-  var searchUser = await userModel.findOne({token:"iIaLscNCDgxmM9BAwk1JmR5dh1UPyqdF"});
+  var searchUser = await userModel.findOne({token:"JcJVTr56DEE5aha6ESMsknJQer0lYPFm"});
   res.json(searchUser);
-});
-
-router.post('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.post('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
 });
 
 
