@@ -1,3 +1,4 @@
+console.disableYellowBox = true;
 import React, { useEffect , useState }from 'react';
 import { Text, View ,StyleSheet ,Image} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
@@ -6,9 +7,10 @@ import * as Location from 'expo-location';
 import { Header ,SearchBar,ButtonGroup, withTheme,Button} from "react-native-elements";
 import  { Ionicons } from "react-native-vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
-import Filter from "../screens/FilterScreen"
+import Filter from "../screens/FilterScreen";
+import FooterApp from '../screens/footer';
 
-export default function MapScreen () {
+export default function MapScreen ({navigation}) {
 
     const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
@@ -20,7 +22,7 @@ export default function MapScreen () {
            {state: true,
             signification: "Musées"},
           {state: true,
-            signification: "Parcs & Jardins"}
+            signification: "Parcs et Jardins"}
           ],
         price: 50,
         showClosed: false
@@ -33,8 +35,6 @@ export default function MapScreen () {
     }
 
 
-console.log("la modale est visible", visibleModal)
-
     useEffect(() => {
         const ask = async ()=>{
              let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -46,6 +46,22 @@ console.log("la modale est visible", visibleModal)
         }
      ask()
         }, [])
+console.log(filters)
+
+    useEffect( () => {
+        console.log("je passe dans le useEffect")
+        let gettours = async () => {
+        const response = await fetch('http://10.2.3.47:3000/display-filtered-tours', {
+          method: 'POST',
+          headers: {'Content-Type':'application/x-www-form-urlencoded'},
+          body: `categories=${JSON.stringify(filters.categories)}&price=${filters.price}&showClosed=${filters.showClosed}`
+        })
+      
+        const jsonResponse = await response.json()
+      }
+        
+        gettours();
+      }, [filters])
 
         const buttons = ['Carte', 'Liste']
      
@@ -113,7 +129,13 @@ console.log("la modale est visible", visibleModal)
             }}
              title="tu es la "   description="tu es la"/>
         </MapView>
+
+        <FooterApp navigation={navigation}/>
+
+        
+
         <Filter visible={visibleModal} userFilterParent={userFilter}/>
+        
         </View>
     )
 }

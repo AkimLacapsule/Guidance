@@ -9,10 +9,17 @@ var quizzSchema = mongoose.Schema({
     win: String
 })
 
+var calendarSchema = mongoose.Schema({
+        Day : Number,
+        open: Boolean,
+        hours: String,
+    });
+
 var tourSchema = mongoose.Schema({
     availablelang: [String],
     title: String,
-    hours: String,
+    calendar : [calendarSchema],
+    openingSynthesis: String,
     duration: String,
     simpleprice: Number,
     groupprice: Number,

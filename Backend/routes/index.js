@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var uid2 = require('uid2');
 
 var userModel = require("../models/users"); 
+var tourModel = require("../models/tour"); 
 
 var cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -22,18 +23,18 @@ router.get('/points-counter', async function(req, res, next) {
 
 
 router.post('/sign-up', async function(req,res,next){
-console.log(req.body, "Blaboui")
+
   var error = []
   var result = false
   var saveUser = null
   var token = null
 
   const data = await userModel.findOne({
-    mail: req.body.usermailFromFront
+    usermail: req.body.usermailFromFront
   })
 
   if(data != null){
-    error.push('utilisateur déjà  présent')
+    error.push('utilisateur déjà présent')
   }
 
   if(req.body.userpseudoFromFront == ''
@@ -57,7 +58,7 @@ console.log(req.body, "Blaboui")
     })
   
     saveUser = await newUser.save()
-    console.log(saveUser, "Blabla")
+    console.log(saveUser, "SAVEUSERBDD")
   
     
     if(saveUser){
@@ -89,15 +90,15 @@ router.post('/sign-in', async function(req,res,next){
       usermail: req.body.usermailFromFront,
       
     })
-    console.log(user, 'PAPPAAPA')
-    console.log(req.body.usermailFromFront, "Bouyaka")
-    console.log(req.body.userpwdFromFront, 'Boubou')
+    console.log(user, 'USERFIND')
+    console.log(req.body.usermailFromFront, "USERFINDMAIL")
+    console.log(req.body.userpwdFromFront, 'USERFINDPWD')
     
     if(user){
       const passwordEncrypt = SHA256(req.body.userpwdFromFront + user.salt).toString(encBase64)
-      console.log(passwordEncrypt,"Bouboubaba")
-      console.log(user.userpwd, 'Biact')
-      console.log(req.body.userpwdFromFront, "FrontBitch")
+      console.log(passwordEncrypt,"PASSWORDENCRYPT")
+      console.log(user.userpwd, 'USER.USERPWD')
+      console.log(req.body.userpwdFromFront, "FRONTUSERPWD")
       if(passwordEncrypt == user.userpwd){
         result = true
         token = user.token
@@ -115,7 +116,49 @@ router.post('/sign-in', async function(req,res,next){
 
   res.json({result, user, error, token})
 
-
 })
+
+  router.post('/display-filtered-tours', async function(req, res, next) {
+
+
+let categories = JSON.parse(req.body.categories)
+
+    let checkedCat = []
+    categories.forEach(obj=>{
+      if (obj.state== true) {
+        checkedCat.push(obj.signification);
+      }
+    })
+
+    var d = new Date();
+    var today = d.getDay();
+    let tours
+
+    console.log("what i get from front", req.body);
+    console.log("les categories selectionnées sont", checkedCat)
+    console.log("aujourd'hui on est le", today)
+
+    if(req.body.showClosed) {
+      tours = await tourModel.find(
+      { category: { $in: checkedCat },
+        simpleprice : {"$lt" : req.body.price},
+        calendar : {day: today, 
+                    open: true}
+      })
+    } else {
+      tours = await tourModel.find(
+        { category: { $in: checkedCat },
+          simpleprice : {"$lt" : req.body.price},
+        })
+    }
+
+    console.log("retour de la BDD", tours)
+
+    res.json({result: tours})
+   
+   
+})
+
+
 
 module.exports = router;
