@@ -120,12 +120,13 @@ router.post('/sign-in', async function(req,res,next){
 
   router.post('/display-filtered-tours', async function(req, res, next) {
 
-
-let categories = JSON.parse(req.body.categories)
-
+    let categoriesfromFront = JSON.parse(req.body.categories);
+    let pricefromFront = JSON.parse(req.body.price);
+    let showClosedfromFront = JSON.parse(req.body.showClosed);
+  
     let checkedCat = []
-    categories.forEach(obj=>{
-      if (obj.state== true) {
+    categoriesfromFront.forEach(obj=>{
+      if (obj.state) {
         checkedCat.push(obj.signification);
       }
     })
@@ -134,29 +135,38 @@ let categories = JSON.parse(req.body.categories)
     var today = d.getDay();
     let tours
 
-    console.log("what i get from front", req.body);
-    console.log("les categories selectionnées sont", checkedCat)
-    console.log("aujourd'hui on est le", today)
+    // console.log("what i get from front", req.body);
+    // console.log("les categories selectionnées sont", checkedCat)
+    // console.log("aujourd'hui on est le", today)
 
-    if(req.body.showClosed) {
+
+    if(showClosedfromFront) {
       tours = await tourModel.find(
       { category: { $in: checkedCat },
-        simpleprice : {"$lt" : req.body.price},
-        calendar : {day: today, 
-                    open: true}
+        simpleprice: {"$lt" : pricefromFront},
+        calendar: {day: today, 
+                  open: true}
       })
     } else {
       tours = await tourModel.find(
         { category: { $in: checkedCat },
-          simpleprice : {"$lt" : req.body.price},
+          simpleprice: {"$lt" : pricefromFront}
         })
     }
 
-    console.log("retour de la BDD", tours)
+    res.json({result: tours}) 
+  })
 
-    res.json({result: tours})
-   
-   
+  router.post('/display-input-tours', async function(req, res, next) {
+
+      let lieu = req.body.title.toLowerCase()
+
+      tours = await tourModel.find({ 
+        title: lieu
+        })
+
+    res.json({result: tours}) 
+    
 })
 
 
