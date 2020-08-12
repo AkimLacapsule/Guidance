@@ -4,7 +4,7 @@ import { Text, View ,StyleSheet ,Image} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';
 import * as Permissions from "expo-permissions";
 import * as Location from 'expo-location';
-import { Header ,SearchBar,ButtonGroup} from "react-native-elements";
+import { Header ,SearchBar,ButtonGroup, withTheme,Button} from "react-native-elements";
 import  { Ionicons } from "react-native-vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
 import Filter from "../screens/FilterScreen";
@@ -16,6 +16,7 @@ export default function MapScreen ({navigation}) {
     const [latitude,setLatitude] = useState(0);
     const [longitude,setLongitude] = useState(0);
     const [inputValue,setInputValue] = useState("")
+    const [selectedIndex,setSelectedIndex] = useState(1)
     const [filters, setFilters] = useState({
         categories : [{state: true,
             signification: "Monuments"},
@@ -111,24 +112,30 @@ export default function MapScreen ({navigation}) {
             <Header backgroundColor={styles.header.color} 
             leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
             rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
-            centerComponent={<Image   style={{height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image>
+            centerComponent={<Image   style={{ height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image> 
             }
             />
            
-           <View style={{backgroundColor:"grey", height:60, dispay:"flex", justifyContent:"space-between", alignItems:"center", flexDirection:"row"}}>
-            <View style={{display:"flex", flexDirection:"row"}}><Ionicons name="ios-options" size={24} color="black"  onPress={()=>setVisibleModal(true)} />
-                    <Text>Filter</Text>
+        <View style={{margin:0,backgroundColor:"#636363",
+            height:60, dispay:"flex", 
+            justifyContent:"space-between", 
+            alignItems:"center", 
+            flexDirection:"row"}}>
+            <View style={{display:"flex",
+             flexDirection:"row",
+             justifyContent:"space-between",
+             widtht:"30%"}}>
+                 <Ionicons name="ios-options" size={24} color="white" style={{marginLeft:8}} onPress={()=>setVisibleModal(true)}/>
+                    <Text style={{color:"white",fontSize:20,marginLeft:8}}>Filtres</Text>
             </View>
-                     <View 
-                              style={{width:200, height:50,borderRadius:50,backgroundColor:"grey"}}>
                               <SearchBar  containerStyle= {{
-                                                              borderRadius:50,height:38,backgroundColor:"grey"}} 
-                                                              inputContainerStyle= {{borderRadius:50, height:"100%"}}
+                                                              height:38,width:"60%",marginRight:"-1%",backgroundColor:"transparent",borderBottomColor:"transparent",borderTopColor:"transparent"}} 
+                                                              inputContainerStyle= {{ borderRadius:15,height:"100%",backgroundColor:"white",marginTop:"-3%"}}
                                                               inputStyle={{height:100}}
-                                    placeholder="Ville,monument.." 
+                                    placeholder="Ville,monument ..." 
                                     onChangeText={(value)=>setInputValue(value)} value={inputValue}>
-                               </SearchBar>
-                    </View>
+                               </SearchBar>  
+                            <Button title="list"></Button>
            </View>
 
           { /*  <Header 
@@ -139,6 +146,19 @@ export default function MapScreen ({navigation}) {
              rightComponent={ <SearchBar   placeholder="mysearch" />}
              />
           */}
+         <View style={{ position:"absolute", marginTop:"9%",  left:"9%"}}>
+          <ButtonGroup 
+                     buttons={buttons}
+                     selectedButtonStyle={{backgroundColor:"white",borderWidth:1,borderColor:"#57508C"}}
+                     containerStyle={{height:50,width:300,borderRadius:10,backgroundColor:"#57508C"}}
+                     selectedIndex={selectedIndex}
+                     selectedTextStyle={{color:"#57508C"}}
+                     textStyle={{color:"white"}}
+                     
+            >
+          </ButtonGroup>
+        </View>
+      
 
         <MapView style={styles.Map} region={{latitude:latitude,longitude:longitude}}>
           {markerList}
@@ -164,7 +184,7 @@ export default function MapScreen ({navigation}) {
 const styles = StyleSheet.create({
     Map:{
         width:"100%",
-        height:"100%"
+        height:"100%",
     },
     header:{
         color:"#4D3D84",
