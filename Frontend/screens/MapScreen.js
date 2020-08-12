@@ -1,3 +1,4 @@
+console.disableYellowBox = true;
 import React, { useEffect , useState }from 'react';
 import { Text, View ,StyleSheet} from 'react-native';
 import MapView , { Marker } from 'react-native-maps';

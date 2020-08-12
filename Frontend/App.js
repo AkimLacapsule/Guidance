@@ -25,10 +25,12 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
+import token from './reducers/token';
 
 
-// const store = createStore(combineReducers({?????}));
 
+const store = createStore(combineReducers({token}));
+console.log(store.getState(), 'STORE INSIDE')
 
 var BottomNavigator = createBottomTabNavigator ({
   Explorer: MapScreen,
@@ -65,5 +67,13 @@ var StackNavigator = createStackNavigator ({
   BottomNavigator: BottomNavigator
 },{headerMode:"none"})
 
-export default Navigation = createAppContainer(StackNavigator);
+const Navigation = createAppContainer(StackNavigator);
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
+ }
 
