@@ -62,7 +62,7 @@ export default function HomeScreen ({navigation}) {
             {tabErrorsSignin}
 
             <Button title= "Connexion" onPress={() => handleSubmitSignin()} style={{width:120}} type="primary"/>
-            <Button title="Go to map" onPress={() => navigation.navigate("BottomNavigator")}/>
+            <Button title="Go to map" onPress={() => navigation.navigate("Map")}/>
 
             <View style={{flexDirection : "row", justifyContent: "center", alignItems: "center"}}>
 

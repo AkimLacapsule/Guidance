@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, ScrollView, Image, StyleSheet } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Header } from "react-native-elements";
+import FooterApp from '../screens/footer';
 
-function BadgesScreen () {
+function BadgesScreen ({navigation}) {
 
     const [myBadges, setMyBadges]=useState([]);
 
@@ -71,7 +72,7 @@ function BadgesScreen () {
 
     return (
 
-        <View style={{backgroundColor:"white", height:"100%"}}>
+        <View style={{backgroundColor:"white", height:"100%", flex:1}}>
 
             <Header backgroundColor={styles.header.color} 
             leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
@@ -93,6 +94,9 @@ function BadgesScreen () {
                     
                 </View>    
             </ScrollView>
+
+            <FooterApp navigation={navigation}/>
+
         </View>        
     )
 }
