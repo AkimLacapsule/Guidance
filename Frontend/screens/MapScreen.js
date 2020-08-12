@@ -9,6 +9,7 @@ import  { Ionicons } from "react-native-vector-icons";
 import { FontAwesome } from '@expo/vector-icons'; 
 import Filter from "../screens/FilterScreen";
 import FooterApp from '../screens/footer';
+import HeaderApp from '../screens/Header';
 
 export default function MapScreen ({navigation}) {
 
@@ -68,13 +69,9 @@ console.log(filters)
     return (
 
        <View style={{flex:1}}>
-            <Header backgroundColor={styles.header.color} 
-            leftComponent={<FontAwesome name="user-circle-o" size={24} color="white" />}
-            rightComponent={<Ionicons name="ios-chatboxes" size={24} color="white" />}
-            centerComponent={<Image   style={{ height:"70%",width:"15%"}}  source={require("../assets/logo.png")}></Image> 
-            }
-            />
-           
+
+        <HeaderApp navigation={navigation}/>
+                       
         <View style={{margin:0,backgroundColor:"#636363",
             height:60, dispay:"flex", 
             justifyContent:"space-between", 
@@ -131,8 +128,6 @@ console.log(filters)
         </MapView>
 
         <FooterApp navigation={navigation}/>
-
-        
 
         <Filter visible={visibleModal} userFilterParent={userFilter}/>
         
