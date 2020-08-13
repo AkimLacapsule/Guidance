@@ -134,12 +134,14 @@ router.post('/sign-in', async function(req,res,next){
     var d = new Date();
     var today = d.getDay();
     let tours
-
+    var stringToGoIntoTheRegex = req.body.title;
+    var regex = new RegExp(stringToGoIntoTheRegex);
     // console.log("what i get from front", req.body);
     // console.log("les categories selectionnées sont", checkedCat)
     // console.log("aujourd'hui on est le", today)
+    console.log(regex)
 
-
+if (req.body.title==''){
     if(showClosedfromFront) {
       tours = await tourModel.find(
       { category: { $in: checkedCat },
@@ -152,22 +154,38 @@ router.post('/sign-in', async function(req,res,next){
         { category: { $in: checkedCat },
           simpleprice: {"$lt" : pricefromFront}
         })
+      }
+    } else {
+      if(showClosedfromFront) {
+        tours = await tourModel.find(
+        { category: { $in: checkedCat },
+          title: { $regex: regex, $options: "si" },
+          simpleprice: {"$lt" : pricefromFront},
+          calendar: {day: today, 
+                    open: true}
+        })
+      } else {
+        tours = await tourModel.find(
+          { category: { $in: checkedCat },
+            title: { $regex: regex, $options: "si" },
+            simpleprice: {"$lt" : pricefromFront}
+          })
+        }
     }
-
     res.json({result: tours}) 
   })
 
-  router.post('/display-input-tours', async function(req, res, next) {
+//   router.post('/display-input-tours', async function(req, res, next) {
 
-      let lieu = req.body.title.toLowerCase()
+//       let lieu = req.body.title.toLowerCase()
 
-      tours = await tourModel.find({ 
-        title: lieu
-        })
+//       tours = await tourModel.find({ 
+//         title: lieu
+//         })
 
-    res.json({result: tours}) 
+//     res.json({result: tours}) 
     
-})
+// })
 
 router.post('/info-tour',async(req,res,next)=>{
     var tour =  await tourModel.find();

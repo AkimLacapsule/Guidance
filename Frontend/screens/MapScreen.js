@@ -60,7 +60,7 @@ export default function MapScreen ({navigation}) {
         const response = await fetch('http://10.2.3.47:3000/display-filtered-tours', {
           method: 'POST',
           headers: {'Content-Type':'application/x-www-form-urlencoded'},
-          body: `categories=${JSON.stringify(filters.categories)}&price=${filters.price}&showClosed=${filters.showClosed}`
+          body: `categories=${JSON.stringify(filters.categories)}&price=${filters.price}&showClosed=${filters.showClosed}&title=${inputValue}`
         })
         
         const jsonResponseFilter = await response.json()
@@ -68,21 +68,21 @@ export default function MapScreen ({navigation}) {
         setTourList(jsonResponseFilter.result) 
       }
       getToursWithFilters();
-      }, [filters])
+      }, [filters, inputValue])
 
-      useEffect( () => {
-        console.log("je passe dans le useEffect de l'input")
-        let getToursWithInput = async () => {
-        const response = await fetch('http://10.2.3.47:3000/display-input-tours', {
-          method: 'POST',
-          headers: {'Content-Type':'application/x-www-form-urlencoded'},
-          body: `title=${inputValue}`
-        })
-        const jsonResponseInput = await response.json()
-        setTourList(jsonResponseInput.result) 
-      }
-        getToursWithInput();
-      }, [inputValue])
+      // useEffect( () => {
+      //   console.log("je passe dans le useEffect de l'input")
+      //   let getToursWithInput = async () => {
+      //   const response = await fetch('http://10.2.3.47:3000/display-input-tours', {
+      //     method: 'POST',
+      //     headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      //     body: `title=${inputValue}`
+      //   })
+      //   const jsonResponseInput = await response.json()
+      //   setTourList(jsonResponseInput.result) 
+      // }
+      //   getToursWithInput();
+      // }, [inputValue])
 
   // Boucle marker
   let markerList = tourList.map((tour, i) => {

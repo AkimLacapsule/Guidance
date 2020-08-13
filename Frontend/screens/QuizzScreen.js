@@ -1,81 +1,76 @@
-import React, { useState } from 'react';
-import { StyleSheet, Button, Text, View, Modal, Switch } from 'react-native';
-// import { ListItem, Header, CheckBox, Slider } from 'react-native-elements'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Modal, Switch } from 'react-native';
+import { Button } from 'react-native-elements'
 // import { Ionicons } from '@expo/vector-icons';
 
 export default function Quizz(props) {
 
     const[isDisabled, setIsDisabled] = useState(false);
-    const[couleurMauvaiseRep, setCouleurMauvaiseRep] = useState('#000000')
-    const[couleurBonneRep, setCouleurBonneRep] = useState('#000000')
-    const[numQuestion, setNumQuestion] = useState(1);
+    const[indexQuestion, setIndexQuestion] = useState(0);
 
+    console.log("je suis l'index", indexQuestion)
     // FROM STORE -> USEEFFECT AU CHARGEMENT
     const[selectedTour, setSelectedTour] = useState(
         {
             _id: "5f32b8c404f5c716406d11e2",
             quizz: [
-                {question: "c'est la question B",
-                 reponse: ["reponse A" , "reponse B", "reponse C", "reponse D"],
-                 win: "reponse B"},
-                 {question: "c'est la question A",
-                 reponse: ["reponse A" , "reponse B", "reponse C", "reponse D"],
+                {question: "c'est la question A",
+                 reponses: ["reponse A" , "reponse B", "reponse C", "reponse D"],
+                 win: "reponse A"},
+                 {question: "c'est la question B",
+                 reponses: ["reponse A" , "reponse B", "reponse C", "reponse D"],
                  win: "reponse B"},
                  {question: "c'est la question C",
-                 reponse: ["reponse A" , "reponse B", "reponse C", "reponse D"],
+                 reponses: ["reponse A" , "reponse B", "reponse C", "reponse D"],
                  win: "reponse C"},
                  {question: "c'est la question D",
-                 reponse: ["reponse A" , "reponse B", "reponse C", "reponse D"],
+                 reponses: ["reponse A" , "reponse B", "reponse C", "reponse D"],
                  win: "reponse D"}
             ]
-          },
+        }
     );
     const[points, setPoints] = useState(0);
 
 useEffect(() => {
     setIsDisabled(false);
-    setCouleurMauvaiseRep('#000000')
-    setCouleurBonneRep('#000000')
-
-}, [numQuestion])
+}, [indexQuestion])
 
 
 var displayAnswer = (reponse) => {
     setIsDisabled(true);
-    if(reponse==selectedTour.quizz[numQuestion-1].win){
-        setCouleurBonneRep("#27B226")
+    if(reponse==selectedTour.quizz[indexQuestion].win){
         setPoints(points+25)
     }else{
-        setCouleurBonneRep("#27B226")
-        setCouleurMauvaiseRep("#D22722")
         setPoints(points-10)
     }
 }
 
-let QCM = selectedTour.quizz[numQuestion-1].reponses.map(reponse => {
-    let couleur = ""
-    if (reponse==selectedTour.quizz[numQuestion-1].win){
-        couleur=couleurBonneRep;
+let QCM = selectedTour.quizz[indexQuestion].reponses.map(reponse => {
+    let disabledCouleur = ""
+    if (reponse==selectedTour.quizz[indexQuestion].win){
+        couleur="#27B226";
     }else{
-        couleur=couleurMauvaiseRep;
+        couleur="#D22722";
     }
-
+console.log(couleur)
     return <Button
-        color={couleur}
+        buttonStyle={{ color: "#000000" }}
         onPress={()=>displayAnswer(reponse)}
         disabled={isDisabled}
-        title={reponse}    
+        title={reponse}
+        type="outline"
+        disabledStyle={{ color: disabledCouleur }}
     />
 
 })
 
 let nombreDeQuestions=selectedTour.quizz.length;
 let bouton;
-if(numQuestion==nombreDeQuestions){
+if((indexQuestion+1)!=nombreDeQuestions){
     bouton = <Button
-    onPress={()=>setNumQuestion(numQuestion+1)}
-    disabled={!isDisabled}
-    title="SUIVANT"    
+            onPress={() => setIndexQuestion(indexQuestion+1)}
+            disabled={!isDisabled}
+            title="SUIVANT"    
             /> 
 } else {
     bouton = <Button
@@ -85,19 +80,13 @@ if(numQuestion==nombreDeQuestions){
             /> 
 }
 
+let numero = indexQuestion+1;
 
 return(
     <View style={styles.container}>
-        <ButtonGroup 
-        buttons={QCM}
-        selectedButtonStyle={{backgroundColor:"white",borderWidth:1,borderColor:"#57508C"}}
-        containerStyle={{height:50,width:300,borderRadius:10,backgroundColor:"#57508C"}}
-        selectedIndex={selectedIndex}
-        selectedTextStyle={{color:"#57508C"}}
-        textStyle={{color:"white"}}
-        >
-        </ButtonGroup>
-
+        <Text> Question n°{numero}</Text>
+        <Text> {selectedTour.quizz[indexQuestion].question}</Text>
+        {QCM}
         {bouton}
     </View> 
 )}
@@ -113,5 +102,3 @@ const styles = StyleSheet.create({
 
 });
 
-
-export default QuizScreen
